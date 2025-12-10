@@ -1,9 +1,14 @@
-from flask import Blueprint, jsonify
-from backend.services.nhl_api import fetch_goalie_stats
+from flask import jsonify
+from . import api
 
-api = Blueprint('api', __name__)
+print("Routes module loaded!")
 
-@api.route('/goalies', methods=['GET'])
-def get_goalies():
-    goalies = fetch_goalie_stats()
-    return jsonify(goalies)
+@api.route('/health', methods=['GET'])
+def health_check():
+    print("Health check called!")
+    return jsonify({'status': 'ok', 'message': 'API is running'}), 200
+
+@api.route('/test', methods=['GET'])
+def test():
+    print("Test endpoint called!")
+    return jsonify({'message': 'Test endpoint working'}), 200
